@@ -396,3 +396,56 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+# Dart tool files
+.dart_tool/
+
+# Flutter related files
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Build artifacts
+build/
+android/app/build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Flutter/App.framework
+ios/Flutter/Generated.xcconfig
+ios/Flutter/Generated.xcconfig.dSYM/
+ios/Pods/
+macos/Flutter/ephemeral/
+linux/flutter/
+windows/flutter/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Xcode specific files
+ios/Runner.xcworkspace/
+ios/Pods/
+ios/Runner/*.xcworkspace/
+ios/Runner.xcodeproj/project.xcworkspace/
+ios/Runner.xcodeproj/xcshareddata/
+ios/Runner.xcworkspace/xcshareddata/
+ios/Runner/xcshareddata/
+
+# Debugging files
+*.log
+*.tmp
+
+# User-specific files
+*.iml
+*.swp
+*.lock
+*.DS_Store
+*.env
+
+
+
