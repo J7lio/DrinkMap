@@ -1,0 +1,213 @@
+import 'package:flutter/material.dart';
+import 'dart:io';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginScreen(),
+    );
+  }
+}
+
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 40),
+                // Imagen del logoç
+
+
+                Image.asset('assets/u.png'),
+
+
+
+                
+                const SizedBox(height: 20),
+                // Título
+                Text(
+                  'Drinkmap',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 5,
+                        color: Colors.black26,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 40),
+                // Subtítulo
+                Text(
+                  'Iniciar sesión',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Introduzca su email y contraseña',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                // Campo de texto
+                Container(
+                  width: 300, // Ajusta el valor según sea necesario
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'email@domain.com',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                Container(
+                  width: 300, // Ajusta el valor según sea necesario
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Contraseña',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+
+                // Botón Continuar
+                Container(
+                  width: 300,
+                  child:ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: const Size(150, 40), // Ajustado para tamaño más pequeño
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Continuar',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+                ),
+                const SizedBox(height: 10),
+
+                // Línea divisora
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center, // Asegura que los elementos estén centrados
+                    children: [
+                      // Raya izquierda con tamaño controlado
+                      Container(
+                        width: 200, // Ajusta el ancho según sea necesario
+                        child: Divider(
+                          color: Colors.grey,  // Color de la línea
+                          thickness: 2,        // Grosor de la línea
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text('O',style: TextStyle(fontWeight: FontWeight.bold,),)
+                      ),
+                      // Raya derecha con tamaño controlado
+                      Container(
+                        width: 200, // Ajusta el ancho según sea necesario
+                        child: Divider(
+                          color: Colors.grey,  // Color de la línea
+                          thickness: 2,        // Grosor de la línea
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                
+                const SizedBox(height: 10),
+
+                // Botón Google
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.grey),
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30), // Ajuste en padding
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: const Size(200, 50), // Ajustado para tamaño más pequeño
+                  ),
+                  icon: const Icon(Icons.g_mobiledata, color: Colors.red),
+                  label: const Text('Continuar con Google'),
+                ),
+
+                const SizedBox(height: 10),
+                // Botón Apple
+                OutlinedButton.icon(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.grey),
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30), // Ajuste en padding
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    minimumSize: const Size(200, 50), // Ajustado para tamaño más pequeño
+                  ),
+                  icon: const Icon(Icons.apple, color: Colors.black),
+                  label: const Text('Continuar con Apple'),
+                ),
+                const SizedBox(height: 20),
+                // Crear nueva cuenta
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Crear nueva cuenta',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                // Políticas de privacidad
+                Text(
+                  'By clicking continue, you agree to our Terms of Service and Privacy Policy',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
