@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_project/listado.dart';
+import 'package:drink_map/listado.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
