@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:drink_map/crear_cuenta.dart';
 import 'package:drink_map/listado.dart'; // Asegúrate de importar la pantalla de registro
+import 'dart:convert'; // Para convertir el JSON a Map
+import 'dart:io'; // Para manipular archivos
+import 'package:path_provider/path_provider.dart'; // Para obtener el directorio de documentos
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +25,26 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _onContinue(BuildContext context) {
+  // Función para leer los datos del archivo JSON
+  Future<List<dynamic>> _loadUsers() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/users.json';
+      final file = File(filePath);
+
+      if (await file.exists()) {
+        final jsonString = await file.readAsString();
+        return jsonDecode(jsonString); // Devuelve la lista de usuarios
+      } else {
+        return []; // Si el archivo no existe, retorna una lista vacía
+      }
+    } catch (e) {
+      print('Error al cargar usuarios: $e');
+      return [];
+    }
+  }
+
+  void _onContinue(BuildContext context) async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
@@ -35,13 +57,34 @@ class LoginScreen extends StatelessWidget {
         ),
       );
     } else {
-      // Continuar con la siguiente pantalla
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DiscotecaSearch(), // Reemplaza con la pantalla deseada
-        ),
-      );
+      // Leer usuarios desde el archivo JSON
+      List<dynamic> users = await _loadUsers();
+
+      // Buscar el usuario con el correo y contraseña proporcionados
+      bool userFound = false;
+      for (var user in users) {
+        if (user['email'] == email && user['password'] == password) {
+          userFound = true;
+          break;
+        }
+      }
+
+      // Si el usuario no se encuentra, mostrar un mensaje de error
+      if (userFound) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DiscotecaSearch(), // Reemplaza con la pantalla deseada
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Correo no registrado o Contraseña Incorrecta'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:drink_map/listado.dart';
 import 'package:drink_map/file_manager.dart';
 
+import 'dart:convert'; // Para convertir el JSON a Map
+import 'dart:io'; // Para manipular archivos
+import 'package:path_provider/path_provider.dart';
+
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -171,13 +175,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   isEmailValid = emailController.text.isNotEmpty;
                   isPasswordValid = passwordController.text.isNotEmpty;
                   isConfirmPasswordValid = confirmPasswordController.text.isNotEmpty;
+                });
 
-                  // Verificar si la contraseña es fuerte
+                bool isRegistered = await isEmailRegistered(emailController.text); // Aquí se puede usar await porque la función es async
+
+                // Verificar si la contraseña es fuerte
+                setState(() {
                   isPasswordStrong = validatePassword(passwordController.text);
-
                   // Validar si las contraseñas coinciden
-                  doPasswordsMatch =
-                      passwordController.text == confirmPasswordController.text;
+                  doPasswordsMatch = passwordController.text == confirmPasswordController.text;
                 });
 
                 // Mostrar mensajes de error específicos
@@ -190,6 +196,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       'La contraseña debe contener al menos 8 caracteres, una mayúscula, un número y un carácter especial (!@#\$%^&*).');
                 } else if (!doPasswordsMatch) {
                   showErrorSnackbar(context, 'Las contraseñas no coinciden.');
+                } else if (isRegistered) {
+                  showErrorSnackbar(context, 'El correo ya existe');
                 } else {
                   // Todo está correcto
                   Map<String, dynamic> userData = {
@@ -233,6 +241,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ),
       ),
     );
+  }
+
+  // Función para verificar si el correo ya está registrado en el JSON
+  Future<bool> isEmailRegistered(String email) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/users.json';
+      final file = File(filePath);
+
+      if (await file.exists()) {
+        final jsonString = await file.readAsString();
+        final List<dynamic> users = jsonDecode(jsonString);
+
+        // Buscar si hay algún usuario con el correo proporcionado
+        for (var user in users) {
+          if (user['email'] == email) {
+            return true; // El correo ya está registrado
+          }
+        }
+        return false; // El correo no está registrado
+      } else {
+        return false; // Si el archivo no existe, no hay usuarios registrados
+      }
+    } catch (e) {
+      print('Error al verificar el correo: $e');
+      return false; // Si ocurre un error, tratamos como si no estuviera registrado
+    }
   }
 
   // Función para validar la contraseña
