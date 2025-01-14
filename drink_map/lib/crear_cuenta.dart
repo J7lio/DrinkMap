@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:drink_map/listado.dart';
+import 'package:drink_map/file_manager.dart';
+
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -7,6 +9,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  final JsonManager fileManager = JsonManager();
+
   DateTime? selectedDate; // Fecha seleccionada
   bool isAdult = true; // Variable para controlar si el usuario es mayor de edad
 
@@ -158,7 +163,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
             // Botón Aceptar
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Validar campos
                 setState(() {
                   isNameValid = nameController.text.isNotEmpty;
@@ -187,6 +192,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   showErrorSnackbar(context, 'Las contraseñas no coinciden.');
                 } else {
                   // Todo está correcto
+                  Map<String, dynamic> userData = {
+                    'name': nameController.text,
+                    'lastName': lastNameController.text,
+                    'email': emailController.text,
+                    'password': passwordController.text,
+                    'birthDate': selectedDate?.toIso8601String(),
+                  };
+
+                  // Guardar el usuario en el archivo JSON
+                  await fileManager.saveUser(userData);
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Formulario enviado con éxito'),
