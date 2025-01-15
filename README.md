@@ -43,6 +43,11 @@ Para ejecutar la aplicación, necesitas tener instalado:
    flutter run
 
 
+## Video Demo
+
+¡Video de demostración de DrinkMap!  
+[Ver en YouTube](https://youtu.be/HXG4XmGoH8s)
+
 ---
 
 Este proyecto se desarrolla con fines educativos como parte de la asignatura **Interfaces Humano-Máquina**.
