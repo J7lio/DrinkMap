@@ -46,7 +46,7 @@ Para ejecutar la aplicación, necesitas tener instalado:
 ## Video Demo
 
 ¡Video de demostración de DrinkMap!  
-[Ver en YouTube](https://youtu.be/HXG4XmGoH8s)
+[Ver en YouTube](https://youtu.be/bXJgK6QEKPQ)
 
 ---
 
